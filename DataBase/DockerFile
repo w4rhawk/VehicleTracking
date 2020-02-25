@@ -1,0 +1,15 @@
+FROM python
+
+COPY ./requirements.txt /DataBase/requirements.txt
+
+WORKDIR /DataBase
+
+RUN pip install -r requirements.txt
+
+COPY . /DataBase
+
+WORKDIR app
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "database.py" ]
