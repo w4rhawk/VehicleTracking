@@ -13,17 +13,6 @@ def getNumberPlate():
 
 	return data
 
-
-def getFreeSpaceToPark():
-	
-	URL = "http://localhost:5001/getFreeSpaceToPark/"
-	  
-	r = requests.get(url = URL) 
-
-	data = r.json()
-
-	return data
-
 def update_session(userID):
 	
 	URL = "http://localhost:5003/updateSession/"
@@ -68,15 +57,13 @@ class entrance_portal:
 
 	def start_process(self):
 
-		data1 = getFreeSpaceToPark()
+		data1 = True
 
-		print("Free Space Detection Container response....\n",data1)
-
-		if data1["Entry Authentication"]=="OK":
+		if data1:
 
 			data2= getNumberPlate()
 
-			print("Number Plate Detection Container response....\n",data2)
+			self.app.setLabel("t4","Number Plate Detection Container response.."+data2)
 
 			numplate = data2["plate no"]
 
@@ -88,11 +75,11 @@ class entrance_portal:
 
 			p_dat = user_data["name"]+"\nPlate Number :"+user_data["userID"]+"\n"
 
-			self.app.setLabel("t4","You can park now.. "+p_dat)
+			print("user data...",p_dat)
 		
 		else:
 
-			self.app.setLabel("t4","Sorry! parking lot is full")
+			self.app.setLabel("t4","Sorry!")
 
 
 

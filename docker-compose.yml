@@ -1,0 +1,17 @@
+version: '3.4'
+services:
+    NumberPlateDetector: 
+        build: 
+            dockerfile: Dockerfile
+            context: ./NumberPlateDetector
+    DataBase:
+        build: 
+            dockerfile: Dockerfile
+            context: ./DataBase
+    Entrance:
+        build: 
+          dockerfile: Dockerfile
+          context: ./Entrance
+        ports: 
+          - '5004:80'
+    
