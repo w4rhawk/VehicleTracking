@@ -1,5 +1,7 @@
 # Car Number Plate Detector API
 
+**IMPORTAMT**
+ADD CLIENT KEY to client_key.json
 
 ## Usage
 
