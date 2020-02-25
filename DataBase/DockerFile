@@ -8,7 +8,7 @@ RUN pip install -r requirements.txt
 
 COPY . /DataBase
 
-WORKDIR app
+WORKDIR /app
 
 ENTRYPOINT [ "python" ]
 
