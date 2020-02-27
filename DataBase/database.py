@@ -1,14 +1,14 @@
 from firebase import firebase
 from datetime import datetime
-import cv2
 from flask import Flask
 from flask import request, jsonify , render_template ,render_template
 import markdown
 import time
 import random
-
-
-firebase = firebase.FirebaseApplication('database link', None)
+try:
+	firebase = firebase.FirebaseApplication('https://vehicletracking-ec89a.firebaseio.com/', None)
+except Exception as e:
+	print(e)
 app = Flask(__name__)
 
 
@@ -18,39 +18,27 @@ def index():
                 content = markdown_file.read()
                 return markdown.markdown(content)
 
-@app.route('/updateSession/',methods=["POST"])
-def updateSession():
-	userID 	  =request.args['userID']
-	slot      =random.randint(10,130)
-	start_time=datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+@app.route('/AddVehicleData/',methods=["POST"])
+def AddVehicleData():
+	TollId = request.args['TollId']
+	TollLocation = request.args['TollLocation']
+	VehicleNumber = request.args['VehicleNumber']
+	ArrivalDate = datetime.now().strftime("%d/%m/%Y %H:%M")
+	data = {
+		"TollId":TollId,
+		"TollLocation":TollLocation,
+		"ArrivalDate":ArrivalDate
+	}
 	try:
-		firebase.put('/user/'+userID,"session",{"start_time":start_time,"slot_alloted":slot})
+		firebase.post('/'+VehicleNumber+'/',data)
 		return jsonify({"Status":"OK"})
 	except Exception as e:
 		return jsonify({"Status":"NOT OK"})      
-
-@app.route('/updateBalTran/',methods=["POST"])
-def updateBalTran():
-	userID 	    =request.args['userID']
-	result      =firebase.get('/user/'+userID, None)
-	transaction =result["trans"]
-	balance     =result["balance"]-50
-	end_time    =datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-	new_trans   ={"start_time":result["session"]["start_time"],"end_time":end_time,"fee_paid":50.0}
-	transaction.append(new_trans)
-
-	try:
-		firebase.put('/user/'+userID,"trans",transaction)
-		firebase.put('/user/'+userID,"balance",balance)
-		return jsonify({"Status":"OK"})
-	except Exception as e:
-		return jsonify({"Status":"NOT OK"})      
-
 
 @app.route('/getFromDatabase/')
 def get():
-	userID =request.args['userID']
-	result =firebase.get('/user/'+userID, None)
+	VehicleNumber =request.args['VehicleNumber']
+	result =firebase.get('/'+VehicleNumber+'/', None)
 	return jsonify(result)
 	
 
