@@ -26,11 +26,10 @@ def AddVehicleData():
 	ArrivalDate = datetime.now().strftime("%d/%m/%Y %H:%M")
 	data = {
 		"TollId":TollId,
-		"TollLocation":TollLocation,
-		"ArrivalDate":ArrivalDate
+		"TollLocation":TollLocation
 	}
 	try:
-		firebase.post('/'+VehicleNumber+'/',data)
+		firebase.post('/'+VehicleNumber+'/'+ArrivalDate+'/',data)
 		return jsonify({"Status":"OK"})
 	except Exception as e:
 		return jsonify({"Status":"NOT OK"})      

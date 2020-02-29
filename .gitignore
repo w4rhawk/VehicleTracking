@@ -1,0 +1,17 @@
+OpenProject.bat
+LicensePlateDetector\copy1.xml
+LicensePlateDetector\copy2.xml
+LicensePlateDetector\indian_license_plate.xml
+LicensePlateDetector\russianplate.xml
+LicensePlateDetector\car1.jpg
+LicensePlateDetector\car.jpg
+LicensePlateDetector\plate1.jpg
+LicensePlateDetector\plate2.jpg
+LicensePlateDetector\platedetector.py
+LicensePlateDetector\__pycache__
+DataBase\app\firebase\__pycache__
+DataBase\app\datamodel.java
+VehicleTracking\exec.bat
+VehicleTracking\app\car1.jpg
+VehicleTracking\app\car2.jpg
+VehicleTracking\app\car3.jpg

@@ -11,7 +11,6 @@ except Exception as e:
 	print(e)
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
         with open("README.md", 'r') as markdown_file:
@@ -23,14 +22,13 @@ def AddVehicleData():
 	TollId = request.args['TollId']
 	TollLocation = request.args['TollLocation']
 	VehicleNumber = request.args['VehicleNumber']
-	ArrivalDate = datetime.now().strftime("%d/%m/%Y %H:%M")
+	ArrivalDate = datetime.now().strftime("%d-%m-%YT%H:%M")
 	data = {
 		"TollId":TollId,
-		"TollLocation":TollLocation,
-		"ArrivalDate":ArrivalDate
+		"TollLocation":TollLocation
 	}
 	try:
-		firebase.post('/'+VehicleNumber+'/',data)
+		firebase.patch('/'+VehicleNumber+'/'+'/'+ArrivalDate+'/',data)
 		return jsonify({"Status":"OK"})
 	except Exception as e:
 		return jsonify({"Status":"NOT OK"})      
