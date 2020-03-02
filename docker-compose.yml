@@ -1,17 +1,15 @@
 version: '3.4'
 services:
-    NumberPlateDetector: 
+    npdservice: 
         build: 
             dockerfile: Dockerfile
-            context: ./NumberPlateDetector
-    DataBase:
+            context: ./LicensePlateDetector
+        ports:
+          - "5002:5002"
+    dbservie:
         build: 
             dockerfile: Dockerfile
             context: ./DataBase
-    Entrance:
-        build: 
-          dockerfile: Dockerfile
-          context: ./Entrance
-        ports: 
-          - '5004:80'
+        ports:
+          - "5003:5003"
     
