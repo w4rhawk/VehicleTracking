@@ -34,7 +34,7 @@ def getNumberPlate():
 	URL = "http://localhost:5002/getPlateNumber/"
 	content_type = 'image/jpeg'
 	headers = {'content-type': content_type}
-	img = cv2.imread('car.jpg')
+	img = cv2.imread('23.jpg')
 	# encode image as jpeg
 	_, img_encoded = cv2.imencode('.jpg', img)  
 	r = requests.get(url = URL,data=img_encoded.tostring(), headers=headers) 
@@ -60,21 +60,10 @@ class entrance_portal:
 		self.app.addLabel("t6","",4,1)
 		self.app.setSize("fullscreen")
 		self.app.go()
-	def noramlize(self,data):
-		normalized = ""
-		for i in data:
-			if(i != '[' and i != ']' and i != ' ' and i != '\"' and i != '-'):
-				if(i==','):
-					normalized=""
-					continue
-				if(i=='.'):
-					continue
-				normalized+=i
-		return normalized
 	def start_process(self):
 		
 		data1 = getNumberPlate()
-		data1 = self.noramlize(data1)
+		data1 = data1[1:-1]
 		print(data1)
 		self.app.setLabel("t4","Number plate container response"+data1)
 		data = adddata(data1,"9A","Chennai")
