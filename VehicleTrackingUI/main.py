@@ -34,13 +34,22 @@ def getNumberPlate():
 	URL = "http://localhost:5002/getPlateNumber/"
 	content_type = 'image/jpeg'
 	headers = {'content-type': content_type}
-	img = cv2.imread('23.jpg')
-	# encode image as jpeg
-	_, img_encoded = cv2.imencode('.jpg', img)  
+	img = cv2.imread('mycar.jpg')
+	width=img.shape[1]
+	height=img.shape[0]
+	hscale_percent = 100
+	wscale_percent = 100
+	if(height>1500):
+		hscale_percent=50
+	if(width >1500):
+		wscale_percent=50 
+	width = int( width* wscale_percent / 100)
+	height = int( height* hscale_percent / 100)
+	dim = (width, height)
+	resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+	_, img_encoded = cv2.imencode('.jpg', resized)  
 	r = requests.get(url = URL,data=img_encoded.tostring(), headers=headers) 
-
 	data = r.json()
-
 	return data
 
 
@@ -50,7 +59,7 @@ class entrance_portal:
 		self.app.setFont(30)
 		self.converted_file_data= ""
 		self.app.addLabel("s11","",0,0)
-		self.app.addFlashLabel("t1", "Welcome to VehicleTracking!!!",0,1)
+		self.app.addLabel("t1", "Welcome to VehicleTracking!!!",0,1)
 		self.app.setLabelHeight("t1",5)
 		self.app.addLabel("s12","",0,2)
 		self.app.addButtons(["Start"], self.start_process,1,1)

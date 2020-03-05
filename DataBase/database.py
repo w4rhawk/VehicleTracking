@@ -5,8 +5,9 @@ from flask import request, jsonify , render_template ,render_template
 import markdown
 import time
 import random
+import constants
 try:
-	firebase = firebase.FirebaseApplication('https://vehicletracking-ec89a.firebaseio.com/', None)
+	firebase = firebase.FirebaseApplication(constants.DATABASE_URI, None)
 except Exception as e:
 	print(e)
 app = Flask(__name__)

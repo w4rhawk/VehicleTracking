@@ -1,1 +1,4 @@
 *.bat
+VehicleTrackingUI/mycar.jpg
+DataBase/constants.py
+DataBase/app/constants.py
